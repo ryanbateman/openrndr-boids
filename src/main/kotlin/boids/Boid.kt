@@ -1,48 +1,53 @@
 import org.openrndr.math.Vector2
+import org.openrndr.math.Vector3
 import kotlin.random.Random
 
 class Boid {
 
-	var position: Vector2
-	var velocity: Vector2
-	var acceleration: Vector2
+	var position: Vector3
+	var velocity: Vector3
+	var acceleration: Vector3
 
-	val maxForce: Double = 0.2
-	val maxSpeed: Double = 5.0
+	val maxForce: Double = 0.4
+	val maxSpeed: Double = 6.0
 
 
-	fun Vector2.limit(max: Double) : Vector2 {
-		var limited = Vector2(x, y)
+	fun Vector3.limit(max: Double) : Vector3 {
+		var limited = Vector3(x, y, z)
 		if (length > max) {
 			limited = this.normalized.times(max)
 		}
 		return limited
 	}
 
-	fun Vector2.distance(other: Vector2) : Double {
+	fun Vector3.distance(other: Vector3) : Double {
 		val dx = x - other.x
 		val dy = y - other.y
+		val dz = z - other.z
 
-		return Math.sqrt(dx * dx + dy * dy)
+		return Math.sqrt(dx * dx + dy * dy + dz * dz)
 	}
 
 	init {
-		position = Vector2(
-			Random.nextDouble(640.0),
-			Random.nextDouble(480.0)
+		position = Vector3(
+			Random.nextDouble(800.0),
+			Random.nextDouble(800.0),
+			Random.nextDouble(800.0)
 		)
-		velocity = Vector2(
+		velocity = Vector3(
+			Random.nextDouble(-maxSpeed, maxSpeed),
 			Random.nextDouble(-maxSpeed, maxSpeed),
 			Random.nextDouble(-maxSpeed, maxSpeed))
-		acceleration = Vector2(
+		acceleration = Vector3(
+			Random.nextDouble(-1.0, 1.0),
 			Random.nextDouble(-1.0, 1.0),
 			Random.nextDouble(-1.0, 1.0)
 		)
 	}
 
-	fun separate(boids: Array<Boid>) : Vector2 {
-		val desiredDistance = 15.0
-		var steer = Vector2(0.0, 0.0)
+	fun separate(boids: Array<Boid>) : Vector3 {
+		val desiredDistance = 40.0
+		var steer = Vector3(0.0, 0.0, 0.0)
 		var count = 0.0
 
 		for (other in boids) {
@@ -73,9 +78,9 @@ class Boid {
 		return steer
 	}
 
-	fun align(boids: Array<Boid>): Vector2 {
-		val neighourDistance = 50.0
-		var sum = Vector2(0.0, 0.0)
+	fun align(boids: Array<Boid>): Vector3 {
+		val neighourDistance = 100.0
+		var sum = Vector3(0.0, 0.0, 0.0)
 		var count = 0.0
 
 		for (other in boids) {
@@ -94,13 +99,13 @@ class Boid {
 			steer = steer.limit(maxForce)
 			return steer
 		} else {
-			return Vector2(0.0, 0.0)
+			return Vector3(0.0, 0.0, 0.0)
 		}
 	}
 
-	fun cohesion(boids: Array<Boid>): Vector2 {
-		val neighbordist = 50.0
-		var sum = Vector2(0.0, 0.0)   // Start with empty vector to accumulate all positions
+	fun cohesion(boids: Array<Boid>): Vector3 {
+		val neighbordist = 100.0
+		var sum = Vector3(0.0, 0.0, 0.0)   // Start with empty vector to accumulate all positions
 		var count = 0.0
 		for (other in boids) {
 			val d = position.distance(other.position)
@@ -113,11 +118,11 @@ class Boid {
 			sum = sum.div(count)
 			return seek(sum)
 		} else {
-			return Vector2(0.0, 0.0)
+			return Vector3(0.0, 0.0, 0.0)
 		}
 	}
 
-	fun seek(target: Vector2): Vector2 {
+	fun seek(target: Vector3): Vector3 {
 		var desired = target.minus(position)  // A vector pointing from the position to the target
 		// Scale to maximum speed
 		desired = desired.normalized
@@ -129,7 +134,7 @@ class Boid {
 		return steer
 	}
 
-	fun applyForce(force: Vector2) {
+	fun applyForce(force: Vector3) {
 		acceleration = acceleration.plus(force)
 	}
 
@@ -146,12 +151,15 @@ class Boid {
 
 		var x = position.x
 		var y = position.y
+		var z = position.z
 
-		if (position.x < -5) x = 640.0 + 5.0;
-		if (position.y < -5) y = 480.0 + 5.0;
-		if (position.x > 640 + 5) x = -5.0;
-		if (position.y > 480 + 5) y = -5.0;
+		if (position.x < -5) x = 800.0 + 5.0;
+		if (position.y < -5) y = 800.0 + 5.0;
+		if (position.z < -5) z = 800.0 + 5.0;
+		if (position.x > 800+ 5) x = -5.0;
+		if (position.y > 800 + 5) y = -5.0;
+		if (position.z > 800 + 5) z = -5.0;
 
-		position = Vector2(x, y)
+		position = Vector3(x, y, z)
 	}
 }

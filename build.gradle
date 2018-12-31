@@ -29,6 +29,7 @@ switch (org.gradle.internal.os.OperatingSystem.current()) {
 dependencies {
     runtime "org.openrndr:openrndr-gl3:$openrndrVersion"
     runtime "org.openrndr:openrndr-gl3-natives-$openrndrOS:$openrndrVersion"
+    compile "org.openrndr:openrndr-ffmpeg:$openrndrVersion"
     compile "org.openrndr:openrndr-core:$openrndrVersion"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }

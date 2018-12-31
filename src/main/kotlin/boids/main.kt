@@ -2,12 +2,13 @@ import org.openrndr.KEY_SPACEBAR
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.Drawer
+import org.openrndr.ffmpeg.ScreenRecorder
 import org.openrndr.shape.Circle
 
 fun main() = application {
 
 	class Flock {
-		val boids = Array(120) { Boid() }
+		val boids = Array(200) { Boid() }
 		var rule1 = true
 
 		fun suspendRule1() {
@@ -36,17 +37,18 @@ fun main() = application {
 					cohesion = cohesion.times(0.8)
 					boid.applyForce(cohesion)
 				} else {
-					cohesion = cohesion.times(3.0)
+					cohesion = cohesion.times(5.0)
 					boid.applyForce(cohesion.times(-1.0))
 				}
-
-
 			}
 		}
 
 		fun render(drawer: Drawer) {
 			for (boid in boids) {
-				val boidBody = Circle(boid.position.x, boid.position.y, 2.0)
+
+				drawer.fill = ColorRGBa(1.0, 0.8, 0.8, 0.8)
+				drawer.stroke = ColorRGBa.TRANSPARENT
+				val boidBody = Circle(boid.position.x, boid.position.y, (boid.position.z / 100) + 2)
 				drawer.circle(boidBody)
 			}
 		}
@@ -57,17 +59,16 @@ fun main() = application {
 				boid.borders()
 			}
 		}
-
 	}
 
 	configure {
-        width = 640
-        height = 480
+        width = 800
+        height = 800
     }
 
     program {
 
-		// extend(ScreenRecorder())
+		extend(ScreenRecorder())
 
 		val theFlock = Flock()
 
@@ -79,8 +80,6 @@ fun main() = application {
 
 		extend {
 			drawer.background(ColorRGBa.WHITE)
-			drawer.fill = ColorRGBa.BLUE
-
 			theFlock.run(drawer)
 		}
     }
