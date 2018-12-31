@@ -7,7 +7,7 @@ import org.openrndr.shape.Circle
 fun main() = application {
 
 	class Flock {
-		val boids = Array(250) { Boid() }
+		val boids = Array(120) { Boid() }
 		var rule1 = true
 
 		fun suspendRule1() {
