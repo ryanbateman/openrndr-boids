@@ -1,4 +1,6 @@
+import org.openrndr.draw.Drawer
 import org.openrndr.math.Vector2
+import org.openrndr.shape.Circle
 import kotlin.random.Random
 
 class Boid {
@@ -9,6 +11,8 @@ class Boid {
 
 	val maxForce: Double = 0.2
 	val maxSpeed: Double = 5.0
+
+	val bodyRadius = 2.0
 
 
 	fun Vector2.limit(max: Double) : Vector2 {
@@ -24,6 +28,22 @@ class Boid {
 		val dy = y - other.y
 
 		return Math.sqrt(dx * dx + dy * dy)
+	}
+
+	fun Vector2.angle(other: Vector2) : Double {
+		var theta = Math.atan2((other.y - y), (other.x - x))
+		var angle = Math.toDegrees(theta) + 90
+		return angle
+	}
+
+	fun render(drawer: Drawer) {
+		val angle = position.angle(position.plus(velocity))
+		drawer.translate(position.x, position.y)
+		drawer.rotate(angle)
+		val points = listOf(Vector2(0.0, -bodyRadius*2.0), Vector2(-bodyRadius, bodyRadius*2), Vector2(bodyRadius, bodyRadius*2), Vector2(0.0, -bodyRadius*2))
+		drawer.lineStrip(points)
+		drawer.rotate(-angle)
+		drawer.translate(-position.x, -position.y)
 	}
 
 	init {
@@ -147,10 +167,10 @@ class Boid {
 		var x = position.x
 		var y = position.y
 
-		if (position.x < -5) x = 640.0 + 5.0;
-		if (position.y < -5) y = 480.0 + 5.0;
-		if (position.x > 640 + 5) x = -5.0;
-		if (position.y > 480 + 5) y = -5.0;
+		if (position.x < -bodyRadius) x = 640.0 + bodyRadius;
+		if (position.y < -bodyRadius) y = 480.0 + bodyRadius;
+		if (position.x > 640 + bodyRadius) x = -bodyRadius;
+		if (position.y > 480 + bodyRadius) y = -bodyRadius;
 
 		position = Vector2(x, y)
 	}

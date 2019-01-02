@@ -7,7 +7,7 @@ import org.openrndr.shape.Circle
 fun main() = application {
 
 	class Flock {
-		val boids = Array(120) { Boid() }
+		val boids = Array(150) { Boid() }
 		var rule1 = true
 
 		fun suspendRule1() {
@@ -46,8 +46,7 @@ fun main() = application {
 
 		fun render(drawer: Drawer) {
 			for (boid in boids) {
-				val boidBody = Circle(boid.position.x, boid.position.y, 2.0)
-				drawer.circle(boidBody)
+				boid.render(drawer)
 			}
 		}
 
