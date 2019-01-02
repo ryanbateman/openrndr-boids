@@ -1,18 +1,26 @@
 import org.openrndr.draw.Drawer
 import org.openrndr.math.Vector2
-import org.openrndr.shape.Circle
+import org.openrndr.shape.contour
 import kotlin.random.Random
 
 class Boid {
 
-	var position: Vector2
-	var velocity: Vector2
-	var acceleration: Vector2
+	private var position: Vector2
+	private var velocity: Vector2
+	private var acceleration: Vector2
 
-	val maxForce: Double = 0.2
-	val maxSpeed: Double = 5.0
+	private val maxForce: Double = 0.2
+	private val maxSpeed: Double = 5.0
 
-	val bodyRadius = 2.0
+	private val bodyRadius = 2.0
+
+	private val bodyContour = contour {
+		moveTo(Vector2(0.0, -bodyRadius * 2.0))
+		lineTo(Vector2(-bodyRadius, bodyRadius * 2))
+		lineTo(Vector2(bodyRadius, bodyRadius * 2))
+		lineTo(anchor)
+		close()
+	}
 
 
 	fun Vector2.limit(max: Double) : Vector2 {
@@ -40,8 +48,7 @@ class Boid {
 		val angle = position.angle(position.plus(velocity))
 		drawer.translate(position.x, position.y)
 		drawer.rotate(angle)
-		val points = listOf(Vector2(0.0, -bodyRadius*2.0), Vector2(-bodyRadius, bodyRadius*2), Vector2(bodyRadius, bodyRadius*2), Vector2(0.0, -bodyRadius*2))
-		drawer.lineStrip(points)
+		drawer.contour(bodyContour)
 		drawer.rotate(-angle)
 		drawer.translate(-position.x, -position.y)
 	}

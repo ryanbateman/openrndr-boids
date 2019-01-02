@@ -39,8 +39,6 @@ fun main() = application {
 					cohesion = cohesion.times(3.0)
 					boid.applyForce(cohesion.times(-1.0))
 				}
-
-
 			}
 		}
 
@@ -78,8 +76,8 @@ fun main() = application {
 
 		extend {
 			drawer.background(ColorRGBa.WHITE)
-			drawer.fill = ColorRGBa.BLUE
-
+			drawer.fill = ColorRGBa.PINK
+			drawer.stroke = null
 			theFlock.run(drawer)
 		}
     }
