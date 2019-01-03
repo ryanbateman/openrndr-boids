@@ -31,6 +31,7 @@ dependencies {
     runtime "org.openrndr:openrndr-gl3-natives-$openrndrOS:$openrndrVersion"
     compile "org.openrndr:openrndr-core:$openrndrVersion"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    compile "org.openrndr:openrndr-ffmpeg:$openrndrVersion"
 }
 
 compileKotlin {

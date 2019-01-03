@@ -2,6 +2,7 @@ import org.openrndr.KEY_SPACEBAR
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.Drawer
+import org.openrndr.ffmpeg.ScreenRecorder
 
 fun main() = application {
 
@@ -77,7 +78,7 @@ fun main() = application {
 			drawer.background(ColorRGBa.WHITE)
 			drawer.fill = ColorRGBa.PINK
 			drawer.stroke = ColorRGBa.BLACK
-			drawer.strokeWeight = 0.2
+			drawer.strokeWeight = 0.5
 			theFlock.run(drawer)
 		}
     }

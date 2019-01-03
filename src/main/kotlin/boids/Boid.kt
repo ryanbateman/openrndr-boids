@@ -9,7 +9,7 @@ class Boid {
 	private var velocity: Vector2
 	private var acceleration: Vector2
 
-	private val maxForce: Double = 0.4
+	private val maxForce: Double = 0.2
 	private val maxSpeed: Double = 5.0
 
 	private val bodyRadius = 4.0
