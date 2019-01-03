@@ -2,12 +2,11 @@ import org.openrndr.KEY_SPACEBAR
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.Drawer
-import org.openrndr.shape.Circle
 
 fun main() = application {
 
 	class Flock {
-		val boids = Array(150) { Boid() }
+		val boids = Array(100) { Boid() }
 		var rule1 = true
 
 		fun suspendRule1() {
@@ -33,7 +32,7 @@ fun main() = application {
 				boid.applyForce(align)
 
 				if (rule1) {
-					cohesion = cohesion.times(0.8)
+					cohesion = cohesion.times(1.0)
 					boid.applyForce(cohesion)
 				} else {
 					cohesion = cohesion.times(3.0)
@@ -77,7 +76,8 @@ fun main() = application {
 		extend {
 			drawer.background(ColorRGBa.WHITE)
 			drawer.fill = ColorRGBa.PINK
-			drawer.stroke = null
+			drawer.stroke = ColorRGBa.BLACK
+			drawer.strokeWeight = 0.2
 			theFlock.run(drawer)
 		}
     }

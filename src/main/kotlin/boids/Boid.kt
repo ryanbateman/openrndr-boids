@@ -9,10 +9,10 @@ class Boid {
 	private var velocity: Vector2
 	private var acceleration: Vector2
 
-	private val maxForce: Double = 0.2
+	private val maxForce: Double = 0.4
 	private val maxSpeed: Double = 5.0
 
-	private val bodyRadius = 2.0
+	private val bodyRadius = 4.0
 
 	private val bodyContour = contour {
 		moveTo(Vector2(0.0, -bodyRadius * 2.0))
@@ -22,8 +22,7 @@ class Boid {
 		close()
 	}
 
-
-	fun Vector2.limit(max: Double) : Vector2 {
+	private fun Vector2.limit(max: Double) : Vector2 {
 		var limited = Vector2(x, y)
 		if (length > max) {
 			limited = this.normalized.times(max)
@@ -31,14 +30,14 @@ class Boid {
 		return limited
 	}
 
-	fun Vector2.distance(other: Vector2) : Double {
+	private fun Vector2.distance(other: Vector2) : Double {
 		val dx = x - other.x
 		val dy = y - other.y
 
 		return Math.sqrt(dx * dx + dy * dy)
 	}
 
-	fun Vector2.angle(other: Vector2) : Double {
+	private fun Vector2.angle(other: Vector2) : Double {
 		var theta = Math.atan2((other.y - y), (other.x - x))
 		var angle = Math.toDegrees(theta) + 90
 		return angle
@@ -68,7 +67,7 @@ class Boid {
 	}
 
 	fun separate(boids: Array<Boid>) : Vector2 {
-		val desiredDistance = 15.0
+		val desiredDistance = 25.0
 		var steer = Vector2(0.0, 0.0)
 		var count = 0.0
 
@@ -170,7 +169,6 @@ class Boid {
 	}
 
 	fun borders() {
-
 		var x = position.x
 		var y = position.y
 
