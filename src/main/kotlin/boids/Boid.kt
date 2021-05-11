@@ -1,3 +1,4 @@
+import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.Drawer
 import org.openrndr.math.Vector2
 import org.openrndr.shape.contour
@@ -45,6 +46,9 @@ class Boid {
 	}
 
 	fun render(drawer: Drawer) {
+		drawer.fill = ColorRGBa.PINK
+		drawer.stroke = ColorRGBa.fromHex(0xff647f)
+		drawer.strokeWeight = 0.7
 		val angle = position.angle(position.plus(velocity))
 		drawer.translate(position.x, position.y)
 		drawer.rotate(angle)

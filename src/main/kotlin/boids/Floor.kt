@@ -13,10 +13,13 @@ object Floor {
 
 	fun run(drawer: Drawer) {
 		currentForce = Perlin.noise(0.0, 0.0, count) * 10
-		if (currentForce < 0)
+		if (currentForce < 0) {
+			drawer.stroke = ColorRGBa(0.5, 0.0, 0.0, 1.0)
 			drawer.fill = ColorRGBa.RED
-		else
+		} else {
+			drawer.stroke = ColorRGBa(0.0, 0.5, 0.0, 1.0)
 			drawer.fill = ColorRGBa.GREEN
+		}
 		drawer.circle(positionX, positionY, currentForce * 5)
 		count += 0.005
 	}
@@ -26,5 +29,4 @@ object Floor {
 		positionY = 240 - (240 * Perlin.noise(count - 0.5, 0.0, 0.0))
 		return Vector2(positionX, positionY)
 	}
-
 }

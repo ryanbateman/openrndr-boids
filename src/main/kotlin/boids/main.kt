@@ -14,7 +14,7 @@ fun main() = application {
 
     program {
 
-		// extend(ScreenRecorder())
+		extend(ScreenRecorder())
 
 		val theFlock = Flock()
 
@@ -26,10 +26,7 @@ fun main() = application {
 
 		extend {
 			drawer.background(ColorRGBa.WHITE)
-			drawer.stroke = ColorRGBa.BLACK
-			drawer.strokeWeight = 0.5
 			Floor.run(drawer)
-			drawer.fill = ColorRGBa.PINK
 			theFlock.run(drawer)
 		}
     }

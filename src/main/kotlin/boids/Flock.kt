@@ -4,7 +4,7 @@ import org.openrndr.draw.Drawer
 import Boid
 
 class Flock {
-	val boids = Array(20) { Boid() }
+	val boids = Array(5) { Boid() }
 	var rule1 = true
 
 	fun suspendRule1() {
