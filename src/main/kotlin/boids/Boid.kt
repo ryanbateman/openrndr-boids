@@ -14,7 +14,7 @@ class Boid {
 	private val maxForce: Double = 0.2
 	private val maxSpeed: Double = 5.0
 
-	private val bodyRadius = 4.0
+	private val bodyRadius = 2.0
 
 	private val bodyContour = contour {
 		moveTo(Vector2(0.0, -bodyRadius * 2.0))

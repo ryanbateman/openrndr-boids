@@ -21,12 +21,14 @@ object Floor {
 			drawer.fill = ColorRGBa.GREEN
 		}
 		drawer.circle(positionX, positionY, currentForce * 5)
+
+		// Iterate noise and position
 		count += 0.005
+		positionX = 320 - (320 * Perlin.noise(0.0, count + 0.1, 0.0))
+		positionY = 240 - (240 * Perlin.noise(count - 0.5, 0.0, 0.0))
 	}
 
 	fun position(): Vector2 {
-		positionX = 320 - (320 * Perlin.noise(0.0, count + 0.1, 0.0))
-		positionY = 240 - (240 * Perlin.noise(count - 0.5, 0.0, 0.0))
 		return Vector2(positionX, positionY)
 	}
 }

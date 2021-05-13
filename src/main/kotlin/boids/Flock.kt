@@ -17,7 +17,7 @@ class Flock {
 		render(drawer)
 	}
 
-	fun flock() {
+	private fun flock() {
 		for (boid in boids) {
 			var separate = boid.separate(boids)
 			var align = boid.align(boids)
@@ -42,13 +42,13 @@ class Flock {
 		}
 	}
 
-	fun render(drawer: Drawer) {
+	private fun render(drawer: Drawer) {
 		for (boid in boids) {
 			boid.render(drawer)
 		}
 	}
 
-	fun update() {
+	private fun update() {
 		for (boid in boids) {
 			boid.update()
 			boid.borders()

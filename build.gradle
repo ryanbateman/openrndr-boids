@@ -25,6 +25,8 @@ switch (org.gradle.internal.os.OperatingSystem.current()) {
         project.ext.openrndrOS = "macos"
         break
 }
+apply plugin: 'kotlin-kapt'
+
 
 dependencies {
     runtime "org.openrndr:openrndr-gl3:$openrndrVersion"
@@ -32,6 +34,8 @@ dependencies {
     compile "org.openrndr:openrndr-core:$openrndrVersion"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     compile "org.openrndr:openrndr-ffmpeg:$openrndrVersion"
+    implementation("com.squareup.moshi:moshi-kotlin:1.12.0")
+    kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.8.0'
 }
 
 compileKotlin {
