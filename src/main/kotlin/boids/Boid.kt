@@ -1,3 +1,4 @@
+import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.Drawer
 import org.openrndr.math.Vector2
 import org.openrndr.shape.contour
@@ -8,6 +9,7 @@ class Boid {
 	private var position: Vector2
 	private var velocity: Vector2
 	private var acceleration: Vector2
+	private val avoidanceDistance = 150.0
 
 	private val maxForce: Double = 0.2
 	private val maxSpeed: Double = 5.0
@@ -44,6 +46,9 @@ class Boid {
 	}
 
 	fun render(drawer: Drawer) {
+		drawer.fill = ColorRGBa.PINK
+		drawer.stroke = ColorRGBa.fromHex(0xff647f)
+		drawer.strokeWeight = 0.7
 		val angle = position.angle(position.plus(velocity))
 		drawer.translate(position.x, position.y)
 		drawer.rotate(angle)
@@ -154,6 +159,23 @@ class Boid {
 		steer = steer.limit(maxForce)
 		return steer
 	}
+
+	fun avoid(target: Vector2): Vector2 {
+		val d = position.distance(target)
+		var steer = Vector2(0.0, 0.0)
+		if (d < avoidanceDistance) {
+			var desired = target.minus(position)  // A vector pointing from the position to the target
+			// Scale to maximum speed
+			desired = desired.normalized
+			desired = desired.times(maxSpeed)
+
+			// Steering = Desired minus Velocity
+			steer = desired.plus(velocity)
+			steer = steer.limit(maxForce)
+		}
+		return steer
+	}
+
 
 	fun applyForce(force: Vector2) {
 		acceleration = acceleration.plus(force)

@@ -1,8 +1,8 @@
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.3.11'
+    id 'org.jetbrains.kotlin.jvm' version '1.3.50'
 }
 
-group 'bateman'
+group 'com.bateman.boids'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -12,7 +12,7 @@ repositories {
     }
 }
 
-project.ext.openrndrVersion = "0.3.30"
+project.ext.openrndrVersion = "0.3.35"
 
 switch (org.gradle.internal.os.OperatingSystem.current()) {
     case org.gradle.internal.os.OperatingSystem.WINDOWS:

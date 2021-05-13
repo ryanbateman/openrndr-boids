@@ -3,5 +3,6 @@
 .idea
 .gradle
 /out
-video
 build
+video
+ffmpegOutput.txt
