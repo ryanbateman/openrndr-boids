@@ -11,5 +11,4 @@ data class Aircraft (
     var baro_rate: Int?,
     var lat: Double?,
     var lon: Double?
-
 )

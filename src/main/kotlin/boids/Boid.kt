@@ -60,7 +60,7 @@ class Boid {
 	init {
 		position = Vector2(
 			Random.nextDouble(640.0),
-			Random.nextDouble(480.0)
+			Random.nextDouble(640.0)
 		)
 		velocity = Vector2(
 			Random.nextDouble(-maxSpeed, maxSpeed),
@@ -195,9 +195,9 @@ class Boid {
 		var y = position.y
 
 		if (position.x < -bodyRadius) x = 640.0 + bodyRadius;
-		if (position.y < -bodyRadius) y = 480.0 + bodyRadius;
+		if (position.y < -bodyRadius) y = 640.0 + bodyRadius;
 		if (position.x > 640 + bodyRadius) x = -bodyRadius;
-		if (position.y > 480 + bodyRadius) y = -bodyRadius;
+		if (position.y > 640 + bodyRadius) y = -bodyRadius;
 
 		position = Vector2(x, y)
 	}

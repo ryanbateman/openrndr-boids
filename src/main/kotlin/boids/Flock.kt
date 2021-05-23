@@ -2,6 +2,7 @@ package boids
 
 import org.openrndr.draw.Drawer
 import Boid
+import org.openrndr.math.Vector2
 
 class Flock {
 	val boids = Array(5) { Boid() }
@@ -22,9 +23,10 @@ class Flock {
 			var separate = boid.separate(boids)
 			var align = boid.align(boids)
 			var cohesion = boid.cohesion(boids)
-			var dodge = boid.avoid(Floor.position())
+			//var dodge = boid.avoid(Others.position())
+			var dodge = boid.avoid(Vector2(0.0, 0.0))
 
-			dodge = dodge.times(Floor.currentForce)
+			dodge = dodge.times(Others.currentForce)
 			separate = separate.times(1.5)
 			align = align.times(1.0)
 
