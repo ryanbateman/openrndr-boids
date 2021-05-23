@@ -12,6 +12,8 @@ object Others {
 	fun run(drawer: Drawer) {
 		for (aircraft in aircraftToDraw) {
 			currentForce = Perlin.noise(0.0, 0.0, count) * 10
+			val drawerCoordinates = drawer.convertLatLonToPosition(LatLon(aircraft.lat!!, aircraft.lon!!))
+			//drawer.circle(drawerCoordinates.first, drawerCoordinates.second, currentForce * 5)
 			if (currentForce < 0) {
 				drawer.stroke = ColorRGBa(0.5, 0.0, 0.0, 1.0)
 				drawer.fill = ColorRGBa.RED
@@ -19,10 +21,10 @@ object Others {
 				drawer.stroke = ColorRGBa(0.0, 0.5, 0.0, 1.0)
 				drawer.fill = ColorRGBa.GREEN
 			}
-
-			val drawerCoordinates = drawer.convertLatLonToPosition(LatLon(aircraft.lat!!, aircraft.lon!!))
-			//drawer.circle(drawerCoordinates.first, drawerCoordinates.second, currentForce * 5)
 			drawer.circle(drawerCoordinates.first, drawerCoordinates.second, 15.0)
+
+			drawer.fill = ColorRGBa.BLACK
+			drawer.text(aircraft.hex, drawerCoordinates.first, drawerCoordinates.second)
 
 			// Iterate noise
 			count += 0.005

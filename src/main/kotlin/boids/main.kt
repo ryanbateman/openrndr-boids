@@ -8,6 +8,7 @@ import org.openrndr.Program
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.Drawer
+import org.openrndr.draw.loadFont
 import org.openrndr.launch
 import java.net.HttpURLConnection
 import java.net.URL
@@ -21,10 +22,10 @@ fun URL.getText(): String {
 
 fun Drawer.convertLatLonToPosition(latLonToConvert:LatLon): Pair<Double, Double> {
 	val berlinBounds = boundingBox(LatLon(51.912853,12.553811), LatLon(53.033704,14.317117))
-	var positionX =
-		this.width * (latLonToConvert.lat - berlinBounds.startLatLon.lat) / (berlinBounds.endLatLon.lat - berlinBounds.startLatLon.lat)
 	var positionY =
-		this.height * (latLonToConvert.lon - berlinBounds.startLatLon.lon) / (berlinBounds.endLatLon.lon - berlinBounds.startLatLon.lon)
+		height - (height * (latLonToConvert.lat - berlinBounds.startLatLon.lat) / (berlinBounds.endLatLon.lat - berlinBounds.startLatLon.lat))
+	var positionX =
+		width * (latLonToConvert.lon - berlinBounds.startLatLon.lon) / (berlinBounds.endLatLon.lon - berlinBounds.startLatLon.lon)
 	return Pair(positionX, positionY)
 }
 
@@ -37,6 +38,8 @@ fun main() = application {
     }
 
     program {
+		val font = loadFont("file:data/FiraCode-Medium.ttf", 15.0)
+
 		val theFlock = Flock()
 		var aircraftList: AircraftList? = AircraftList()
 		val aircraftListAdapter: JsonAdapter<AircraftList> = setupAircraftParser()
@@ -44,6 +47,8 @@ fun main() = application {
 		var once = false;
 
 		extend {
+			drawer.fontMap = font
+
 			launch {
 				if (!once) {
 					once = true
