@@ -9,6 +9,7 @@ import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.Drawer
 import org.openrndr.draw.loadFont
+import org.openrndr.ffmpeg.ScreenRecorder
 import org.openrndr.launch
 import java.net.HttpURLConnection
 import java.net.URL

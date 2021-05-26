@@ -5,6 +5,7 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class Aircraft (
     var hex: String,
+    var flight: String?,
     var alt_baro: Int?,
     var alt_geom: Int?,
     var gs: Double?,

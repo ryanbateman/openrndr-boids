@@ -24,15 +24,18 @@ object Others {
 			drawer.circle(drawerCoordinates.first, drawerCoordinates.second, 15.0)
 
 			drawer.fill = ColorRGBa.BLACK
-			drawer.text(aircraft.hex, drawerCoordinates.first, drawerCoordinates.second)
+			drawer.text(aircraft.flight ?: aircraft.hex, drawerCoordinates.first, drawerCoordinates.second)
 
 			// Iterate noise
 			count += 0.005
 		}
 	}
 
-	fun position(){
+	fun render(drawer: Drawer) {
+	}
 
+	fun position(){
+		TODO() // Create coordinate system that filters relevant planes for birds
 	}
 
 	fun update(aircraftList: AircraftList?) {
