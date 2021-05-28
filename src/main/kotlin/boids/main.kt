@@ -21,18 +21,7 @@ fun URL.getText(): String {
 	}
 }
 
-fun Drawer.convertLatLonToPosition(latLonToConvert:LatLon): Pair<Double, Double> {
-	val berlinBounds = boundingBox(LatLon(51.912853,12.553811), LatLon(53.033704,14.317117))
-	var positionY =
-		height - (height * (latLonToConvert.lat - berlinBounds.startLatLon.lat) / (berlinBounds.endLatLon.lat - berlinBounds.startLatLon.lat))
-	var positionX =
-		width * (latLonToConvert.lon - berlinBounds.startLatLon.lon) / (berlinBounds.endLatLon.lon - berlinBounds.startLatLon.lon)
-	return Pair(positionX, positionY)
-}
-
-
 fun main() = application {
-
 	configure {
         width = 640
         height = 640
@@ -56,7 +45,7 @@ fun main() = application {
 					aircraftList =
 					aircraftListAdapter.fromJson(URL("http://192.168.178.19:8080/data/aircraft.json").getText())
 					Others.update(aircraftList)
-					delay(5000)
+					delay(2000)
 					once = false
 				}
 			}

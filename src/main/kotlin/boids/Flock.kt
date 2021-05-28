@@ -23,9 +23,8 @@ class Flock {
 			var separate = boid.separate(boids)
 			var align = boid.align(boids)
 			var cohesion = boid.cohesion(boids)
-			//var dodge = boid.avoid(Others.position())
-			var dodge = boid.avoid(Vector2(0.0, 0.0))
 
+			var dodge = boid.avoid(Others.relevantPositions())
 			dodge = dodge.times(Others.currentForce)
 			separate = separate.times(1.5)
 			align = align.times(1.0)

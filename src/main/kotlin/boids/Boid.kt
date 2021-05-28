@@ -105,7 +105,7 @@ class Boid {
 	}
 
 	fun align(boids: Array<Boid>): Vector2 {
-		val neighourDistance = 50.0
+		val neighourDistance = 35.0
 		var sum = Vector2(0.0, 0.0)
 		var count = 0.0
 
@@ -130,7 +130,7 @@ class Boid {
 	}
 
 	fun cohesion(boids: Array<Boid>): Vector2 {
-		val neighbordist = 50.0
+		val neighbordist = 35.0
 		var sum = Vector2(0.0, 0.0)   // Start with empty vector to accumulate all positions
 		var count = 0.0
 		for (other in boids) {
@@ -160,19 +160,21 @@ class Boid {
 		return steer
 	}
 
-	fun avoid(target: Vector2): Vector2 {
-		val d = position.distance(target)
+	fun avoid(targets: List<Vector2>): Vector2 {
 		var steer = Vector2(0.0, 0.0)
-		if (d < avoidanceDistance) {
-			var desired = target.minus(position)  // A vector pointing from the position to the target
-			// Scale to maximum speed
-			desired = desired.normalized
-			desired = desired.times(maxSpeed)
+		for (target in targets) {
+			val d = position.distance(target)
+			if (d < avoidanceDistance) {
+				var desired = target.minus(position)  // A vector pointing from the position to the target
+				// Scale to maximum speed
+				desired = desired.normalized
+				desired = desired.times(maxSpeed)
 
-			// Steering = Desired minus Velocity
-			steer = desired.plus(velocity)
-			steer = steer.limit(maxForce)
+				// Steering = Desired minus Velocity
+				steer = steer.plus(desired.plus(velocity))
+			}
 		}
+		steer = steer.limit(maxForce)
 		return steer
 	}
 
