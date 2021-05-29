@@ -35,7 +35,7 @@ fun main() = application {
 		val aircraftListAdapter: JsonAdapter<AircraftList> = setupAircraftParser()
 		setupKeyboard(theFlock)
 		var once = false;
-
+		
 		extend {
 			drawer.fontMap = font
 

@@ -5,7 +5,7 @@ import Boid
 import org.openrndr.math.Vector2
 
 class Flock {
-	val boids = Array(5) { Boid() }
+	val boids = Array(15) { Boid() }
 	var rule1 = true
 
 	fun suspendRule1() {

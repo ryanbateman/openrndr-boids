@@ -109,12 +109,12 @@ class Boid {
 		var sum = Vector2(0.0, 0.0)
 		var count = 0.0
 
-		for (other in boids) {
-			val d = position.distance(other.position)
-			if (d > 0 && d < neighourDistance) {
-				sum = sum.plus(other.velocity)
-				count++
-			}
+		for (other in boids.filter {
+			val d = position.distance(it.position)
+			0 < d && d < neighourDistance
+		}) {
+			sum = sum.plus(other.velocity)
+			count++
 		}
 
 		if (count > 0) {
